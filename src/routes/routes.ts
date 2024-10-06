@@ -2,7 +2,7 @@ import { LazyExoticComponent } from 'react';
 import HomeScreen from '../screens/HomeScreen';
 import MapScreen from '../screens/MapScreen';
 import InformationScreen from '../screens/InformationScreen';
-import AboutScreen from '../screens/AboutScreen';
+// import AboutScreen from '../screens/AboutScreen';
 
 type JSXComponent =  () => JSX.Element;
 
@@ -37,10 +37,10 @@ export const routes: Route[] = [
         component: InformationScreen,
         name: 'Information'
     },
-    {
-        to: '/about',
-        path: 'about',
-        component: AboutScreen,
-        name: 'About'
-    }
+    // {
+    //     to: '/about',
+    //     path: 'about',
+    //     component: AboutScreen,
+    //     name: 'About'
+    // }
 ];
