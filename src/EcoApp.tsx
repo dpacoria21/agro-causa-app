@@ -7,10 +7,9 @@ export const EcoApp = () => {
         <>
             <BrowserRouter>
         
-                <header>
+                <header className='w-full'>
                     <Navbar/>
                 </header>
-
 
                 <main>
                     <Routes>
@@ -19,7 +18,6 @@ export const EcoApp = () => {
                                 <Route key={route.name+i} path={route.path} element={<route.component />}/>
                             ))
                         }
-
                         <Route path='/*' element={<Navigate to={'/'}/>} />
                     </Routes>
                 </main>

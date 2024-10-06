@@ -1,4 +1,8 @@
-import { lazy, LazyExoticComponent } from 'react';
+import { LazyExoticComponent } from 'react';
+import HomeScreen from '../screens/HomeScreen';
+import MapScreen from '../screens/MapScreen';
+import InformationScreen from '../screens/InformationScreen';
+import AboutScreen from '../screens/AboutScreen';
 
 type JSXComponent =  () => JSX.Element;
 
@@ -9,34 +13,34 @@ interface Route {
     name: string,
 }
 
-const lazyHomeScreen = lazy(() => import('../screens/HomeScreen'));
-const lazyMapScreen = lazy(() => import('../screens/MapScreen'));
-const lazyInformationScreen = lazy(() => import('../screens/InformationScreen'));
-const lazyAboutScreen = lazy(() => import('../screens/AboutScreen'));
+// const lazyHomeScreen = lazy(() => import('../screens/HomeScreen'));
+// const lazyMapScreen = lazy(() => import('../screens/MapScreen'));
+// const lazyInformationScreen = lazy(() => import('../screens/InformationScreen'));
+// const lazyAboutScreen = lazy(() => import('../screens/AboutScreen'));
 
 export const routes: Route[] = [
     {
         to: '/',
         path: '',
-        component: lazyHomeScreen,
+        component: HomeScreen,
         name: 'Home'
     },
     {
         to: '/agro-map',
         path: 'agro-map',
-        component: lazyMapScreen,
+        component: MapScreen,
         name: 'Map'
     },
     {
         to: '/information',
         path: 'information',
-        component: lazyInformationScreen,
+        component: InformationScreen,
         name: 'Information'
     },
     {
         to: '/about',
         path: 'about',
-        component: lazyAboutScreen,
+        component: AboutScreen,
         name: 'About'
     }
 ];
