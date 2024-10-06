@@ -6,6 +6,7 @@ import { usePlaces } from '../hooks/usePlaces';
 import * as turf from '@turf/turf';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { usePositionStore } from '../store/position/position-store';
+import { InformationScreen } from './InformationScreen';
 
 export const MapScreen = () => {
 
@@ -45,7 +46,7 @@ export const MapScreen = () => {
                 setPosition(lng, lat);
 
                 const center = [lng, lat];
-                const radius = 0.5;
+                const radius = 0.1;
                 const options = { steps: 64, units: 'kilometers', properties: { foo: 'bar' } };
                 const circle = turf.circle(center, radius, options);
 
@@ -114,15 +115,15 @@ export const MapScreen = () => {
                 style={{
                     height: '70vh',
                     width: '100vw',
-                    // position: 'fixed',
                     top: 0,
                     left: 0,
                 }}
             >
                 {/* {[currentPosition.lng, currentPosition.lat]} */}
             </div>
-            <div>
-                <h1>Information sobre la  ubicacion</h1>
+            <div className='p-5'>
+                {/* Realizar la llamada de la api para mostrar la informacion */}
+                <InformationScreen />
             </div>
         </>
     
