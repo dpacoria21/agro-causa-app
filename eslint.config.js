@@ -23,6 +23,23 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      'indent': [
+            'error',
+            4,
+        ],
+        'react-native/no-inline-styles': 0,
+        'quotes': [
+            'error',
+            'single',
+        ],
+        'semi': [
+            'error',
+            'always',
+        ],
+        'prettier/prettier': 0,
+        '@typescript-eslint/no-empty-interface': 'off',
+        'react/no-unstable-nested-components': 0,
+        'react/react-in-jsx-scope': 'off',
     },
   },
 )
