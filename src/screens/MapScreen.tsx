@@ -1,10 +1,11 @@
-import { Map } from 'mapbox-gl';
+import { Map, Marker, Popup } from 'mapbox-gl';
 import { useEffect, useRef } from 'react';
 import { usePlaces } from '../hooks/usePlaces';
 
 
 import * as turf from '@turf/turf';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { usePositionStore } from '../store/position/position-store';
 
 export const MapScreen = () => {
 
@@ -13,7 +14,9 @@ export const MapScreen = () => {
     const mapDiv = useRef<HTMLDivElement>(null);
     const mapInstance = useRef<Map | null>(null);
     const {isLoading, currentPosition} = usePlaces();
+    const setPosition = usePositionStore(state => state.setPosition);
     const circleId = useRef<string>('');
+    const marker = useRef<Marker>(new Marker());
 
     useEffect(() => {
         if(!isLoading && !mapInstance.current) {
@@ -22,7 +25,7 @@ export const MapScreen = () => {
                 container: mapDiv.current!, // container ID
                 style: 'mapbox://styles/mapbox/satellite-v9', // style URL
                 center: [currentPosition.lng, currentPosition.lat], // starting position [lng, lat]
-                zoom: 15, // starting zoom
+                zoom: 16, // starting zoom
                 accessToken: import.meta.env.VITE_MAPBOX_KEY,
             });
 
@@ -33,15 +36,16 @@ export const MapScreen = () => {
 
             });
 
-
             const updateCircle = (e: Event) => {
 
                 if(mapInstance.current===null) return;
+                if(marker.current!=null) marker.current.remove();
 
                 const {lat, lng} = e.lngLat;
+                setPosition(lng, lat);
 
                 const center = [lng, lat];
-                const radius = 0.9;
+                const radius = 0.5;
                 const options = { steps: 64, units: 'kilometers', properties: { foo: 'bar' } };
                 const circle = turf.circle(center, radius, options);
 
@@ -63,6 +67,17 @@ export const MapScreen = () => {
                     data: circle,
                 });
 
+                const popup = new Popup()
+                    .setHTML(`
+                    <h6>$asdfdasfsd</h6>
+                    <p>$asdfasdfsdafas</p>
+                `);
+
+                marker.current
+                    .setPopup(popup)
+                    .setLngLat([lng, lat])
+                    .addTo(mapInstance.current);
+
                 mapInstance.current.addLayer({
                     id: newCircleId,
                     type: 'fill',
@@ -79,8 +94,6 @@ export const MapScreen = () => {
             };
 
             mapInstance.current.on('click', updateCircle);
-
-
         }
 
     }, [isLoading]);
@@ -89,25 +102,31 @@ export const MapScreen = () => {
         return (
             <h1>
                 esta cargando...
-                
             </h1>
         );
     }
 
     return (
-        <div
-            id='map-container'
-            ref={mapDiv}
-            style={{
-                height: '90vh',
-                width: '100vw',
-                // position: 'fixed',
-                top: 0,
-                left: 0,
-            }}
-        >
-            {/* {[currentPosition.lng, currentPosition.lat]} */}
-        </div>
+        <>
+            <div
+                id='map-container'
+                ref={mapDiv}
+                style={{
+                    height: '70vh',
+                    width: '100vw',
+                    // position: 'fixed',
+                    top: 0,
+                    left: 0,
+                }}
+            >
+                {/* {[currentPosition.lng, currentPosition.lat]} */}
+            </div>
+            <div>
+                <h1>Information sobre la  ubicacion</h1>
+            </div>
+        </>
+    
+
     );
 };
 
