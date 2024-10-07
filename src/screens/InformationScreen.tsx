@@ -1,5 +1,6 @@
 // import { useEffect } from 'react';
 import featuresApi from '../apis/featuresApi';
+import { ChatComponent } from '../components/ChatComponent';
 import { IconFeature } from '../components/IconFeature';
 import { usePositionStore } from '../store/position/position-store';
 
@@ -42,13 +43,9 @@ export const InformationScreen = () => {
     
     getFeatures(position.lng, position.lat);
 
-    // useEffect(() => {
-
-    // }, []);
-
     return (
-        <div className='flex w-full bg-slate-200 rounded-md'>
-            <div className='flex flex-col gap-1 w-1/2'>
+        <div className='flex flex-col w-full bg-slate-200 rounded-md md:flex-row'>
+            <div className='flex flex-col gap-1 md:w-1/2'>
 
                 <div key={features[0].label} className='flex items-center justify-between px-8'>
                     <IconFeature {...features[0]}/>
@@ -65,8 +62,8 @@ export const InformationScreen = () => {
                     <p className='text-lg font-bold'>{humiditySurface?.toFixed(2)}%</p>
                 </div>
             </div>
-            <div className='flex w-1/2 bg-slate-950'>
-                
+            <div className='flex md:w-1/2 justify-center'>
+                <ChatComponent />
             </div>
         </div>
     );
