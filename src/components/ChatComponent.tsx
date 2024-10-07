@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import chatApi from '../apis/chatApi';
 import { usePositionStore } from '../store/position/position-store';
+import Markdown from 'react-markdown';
 
 interface FormInputs {
     question: string,
@@ -34,17 +35,18 @@ export const ChatComponent = () => {
     const humidity = usePositionStore(state => state.humidity);
     const surfaceTemperature = usePositionStore(state => state.surface_temperature);
     const surfaceHumidity = usePositionStore(state => state.surface_temperature);
-    const [aiResponse] = useState<string>('');
+    const [aiResponse, setAiResponse] = useState<string>('');
 
     const onSubmit = async (data: FormInputs) => {
         console.log(data);
         const result = await getResponse(data.question, surfaceTemperature?.toFixed(2)+'grados', humidity?.toFixed(2)+'%', surfaceHumidity!.toFixed(2), data.nitrogeno, data.potacio);
+        setAiResponse(result);
         console.log(result);
     };
 
     return (
         
-        <>
+        <div className='flex flex-col p-4'>
     
             <form className='flex flex-col gap-2' onSubmit={handleSubmit(onSubmit)}>
                 <div className=''>
@@ -70,14 +72,14 @@ export const ChatComponent = () => {
             </form>
 
             {
-                aiResponse!='' &&
+                aiResponse=='' &&
                 (
                     <div className="mt-6 p-4 bg-gray-100 rounded-md">
                         <h3 className="font-semibold mb-2">Respuesta de la IA:</h3>
-                        <p>{aiResponse}</p>
+                        <Markdown>{aiResponse}</Markdown>
                     </div>
                 )
             }
-        </>
+        </div>
     );
 };
