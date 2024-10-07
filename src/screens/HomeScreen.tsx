@@ -45,22 +45,22 @@ const participants: Participant[] = [
     {
         fullName: 'Gustavo Ordoño',
         university: 'Universidad Nacional de San Agustin',
-        role: 'Front-End Developer'
+        role: 'Back-End Developer'
     },
     {
         fullName: 'Anthony Moroccoire',
         university: 'Universidad Nacional de San Agustin',
-        role: 'Front-End Developer'
+        role: 'Back-End Developer'
     },
     {
         fullName: 'Bryan Hancco',
         university: 'Universidad Nacional de San Agustin',
-        role: 'Front-End Developer'
+        role: 'Back-End Developer'
     },
     {
         fullName: 'Franco Cardenas',
         university: 'Universidad Nacional de San Agustin',
-        role: 'Front-End Developer'
+        role: 'Back-End Developer'
     },
     
 ];
