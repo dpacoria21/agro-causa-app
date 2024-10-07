@@ -20,23 +20,25 @@ const getResponse = async(question: string, temperatura: string, humedad: string
             potacio
         }
     };
-    const data = await chatApi('/chat/response', body);
+    const data = await chatApi('/chat/response', {
+        data: body
+    });
     console.log(data);
     return data.data.result;
 };
 
 export const ChatComponent = () => {
 
-    const {register, handleSubmit, watch, formState: {errors}} = useForm<FormInputs>();
+    const {register, handleSubmit} = useForm<FormInputs>();
 
     const humidity = usePositionStore(state => state.humidity);
     const surfaceTemperature = usePositionStore(state => state.surface_temperature);
     const surfaceHumidity = usePositionStore(state => state.surface_temperature);
-    const [aiResponse, setAiResponse] = useState<string>('');
+    const [aiResponse] = useState<string>('');
 
     const onSubmit = async (data: FormInputs) => {
         console.log(data);
-        const result = await getResponse(data.question, surfaceTemperature?.toFixed(2)+'grados', humidity?.toFixed(2)+'%', surfaceHumidity?.toFixed(2), data.nitrogeno, data.potacio);
+        const result = await getResponse(data.question, surfaceTemperature?.toFixed(2)+'grados', humidity?.toFixed(2)+'%', surfaceHumidity!.toFixed(2), data.nitrogeno, data.potacio);
         console.log(result);
     };
 

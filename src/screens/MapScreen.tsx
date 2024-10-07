@@ -1,4 +1,4 @@
-import { Map, Marker, Popup } from 'mapbox-gl';
+import { Map, MapMouseEvent, Marker, Popup } from 'mapbox-gl';
 import { useEffect, useRef } from 'react';
 import { usePlaces } from '../hooks/usePlaces';
 
@@ -37,7 +37,7 @@ export const MapScreen = () => {
 
             });
 
-            const updateCircle = (e: Event) => {
+            const updateCircle = (e: MapMouseEvent) => {
 
                 if(mapInstance.current===null) return;
                 if(marker.current!=null) marker.current.remove();
@@ -47,7 +47,7 @@ export const MapScreen = () => {
 
                 const center = [lng, lat];
                 const radius = 0.1;
-                const options = { steps: 64, units: 'kilometers', properties: { foo: 'bar' } };
+                const options = { steps: 64, units: 'kilometers' as turf.Units, properties: { foo: 'bar' } };
                 const circle = turf.circle(center, radius, options);
 
                 // add a circle on a map
